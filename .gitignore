@@ -1,0 +1,20 @@
+# Virtuelle Umgebungen
+venv/
+.venv/
+env/
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Datensätze (MedMNIST lädt Daten standardmäßig in einen versteckten Ordner, 
+# aber falls du Daten lokal speicherst, ignoriere sie hier)
+data/
+*.npz
+
+# IDE Einstellungen (z.B. VS Code oder PyCharm)
+.vscode/
+.idea/
+
+# Mac OS Müll-Dateien (falls du einen Mac nutzt)
+.DS_Store
