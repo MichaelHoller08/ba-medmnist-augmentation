@@ -149,7 +149,7 @@ for num_unknown in UNKNOWN_AMOUNTS_TO_TEST:
     best_lr_base = study_base.best_params["lr"]
     best_bs_base = study_base.best_params["batch_size"]
 
-    print("--- BASELINE: Finales Training (40 Epochen) ---")
+    print("--- BASELINE: Finales Training (80 Epochen) ---")
     final_train_loader = DataLoader(small_train_ds, batch_size=best_bs_base, shuffle=True)
     final_val_loader = DataLoader(val_dataset, batch_size=best_bs_base, shuffle=False)
     base_model = models.resnet18(weights=models.ResNet18_Weights.IMAGENET1K_V1)
