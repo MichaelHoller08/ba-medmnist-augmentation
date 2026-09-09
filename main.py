@@ -131,7 +131,7 @@ for current_seed in SEEDS_TO_TEST:
     optuna.logging.set_verbosity(optuna.logging.WARNING)
     sampler = optuna.samplers.TPESampler(seed=current_seed)
     study_base = optuna.create_study(direction="maximize", sampler=sampler)
-    study_base.optimize(objective_baseline, n_trials=5) # Für n_trials=5 reicht meistens für Tuning
+    study_base.optimize(objective_baseline, n_trials=5)
     best_lr_base = study_base.best_params["lr"]
     best_bs_base = study_base.best_params["batch_size"]
 
