@@ -34,15 +34,15 @@ print(f"Nutze Gerät: {DEVICE}")
 # Fixe Parameter für diese Studie
 NUM_SAMPLES_PER_CLASS = 50 
 BATCH_SIZE = 32
-CURRENT_SEED = 42 # Wir nutzen für die Ablation einen festen Seed für faire Vergleichbarkeit
+CURRENT_SEED = 150
 
 # Die Liste der Unknown-Mengen, die wir testen wollen:
 # 0 = Entspricht im Grunde der Baseline (nur dass der Code durchläuft)
 # 50 = 1:1 Verhältnis zu EINER Zielklasse
 # 450 = 1:1 Verhältnis zu ALLEN Zielklassen gesamt (9 * 50)
 # 900 = Doppelte Menge an OOD-Daten
-#UNKNOWN_AMOUNTS_TO_TEST = [0, 50, 150, 300, 450, 600, 900, 1500, 3000, 6000, 10000, 11959]
-UNKNOWN_AMOUNTS_TO_TEST = [3000, 6000, 10000, 11959]
+UNKNOWN_AMOUNTS_TO_TEST = [0, 50, 150, 300, 450, 600, 900, 1500, 3000, 6000, 10000, 11959]
+#UNKNOWN_AMOUNTS_TO_TEST = [3000, 6000, 10000, 11959]
 
 # ==========================================
 # 1. DATEN EINMALIG LADEN
@@ -122,7 +122,7 @@ for num_unknown in UNKNOWN_AMOUNTS_TO_TEST:
             optimizer = optim.Adam(model.parameters(), lr=lr)
             criterion = nn.CrossEntropyLoss()
             best_a = 0
-            for _ in range(10):
+            for _ in range(12):
                 model.train()
                 for inp, tgt in l_train:
                     inp, tgt = inp.to(DEVICE), tgt.flatten().to(DEVICE).long()
@@ -159,7 +159,7 @@ for num_unknown in UNKNOWN_AMOUNTS_TO_TEST:
     criterion = nn.CrossEntropyLoss()
 
     best_base_val_acc, best_base_weights = 0.0, None
-    for _ in range(40):
+    for _ in range(80):
         base_model.train()
         for inp, tgt in final_train_loader:
             inp, tgt = inp.to(DEVICE), tgt.flatten().to(DEVICE).long()
@@ -232,7 +232,7 @@ for num_unknown in UNKNOWN_AMOUNTS_TO_TEST:
             optimizer = optim.Adam(model.parameters(), lr=lr)
             criterion = nn.CrossEntropyLoss()
             best_p1, w_p1 = 0.0, None
-            for _ in range(8):
+            for _ in range(12):
                 model.train()
                 for inp, tgt in l_comb:
                     inp, tgt = inp.to(DEVICE), tgt.flatten().to(DEVICE).long()
@@ -300,7 +300,7 @@ for num_unknown in UNKNOWN_AMOUNTS_TO_TEST:
 
     # P1 Final
     best_f_p1, w_f_p1 = 0.0, None
-    for _ in range(40):
+    for _ in range(50):
         strat_model.train()
         for inp, tgt in f_tr_comb:
             inp, tgt = inp.to(DEVICE), tgt.flatten().to(DEVICE).long()
@@ -326,7 +326,7 @@ for num_unknown in UNKNOWN_AMOUNTS_TO_TEST:
     optimizer_strat = optim.Adam(strat_model.parameters(), lr=best_lr_strat)
 
     best_f_p2, w_f_p2 = 0.0, None
-    for _ in range(25):
+    for _ in range(30):
         strat_model.train()
         for inp, tgt in f_tr_targ:
             inp, tgt = inp.to(DEVICE), tgt.flatten().to(DEVICE).long()

@@ -31,8 +31,8 @@ def set_seed(seed=42):
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Nutze Gerät: {DEVICE}")
 
-NUM_SAMPLES_PER_CLASS = 3000
-NUM_UNKNOWN_SAMPLES = 1000
+NUM_SAMPLES_PER_CLASS = 5000
+NUM_UNKNOWN_SAMPLES = 3000
 UNKNOWN_LABEL = 9 
 
 # ==========================================
